@@ -11,7 +11,11 @@ type ButtonProps = {
     onClick(text: string): void
 }
 
-export const Button: React.FunctionComponent<ButtonProps> = ({ text, onClick, isSelected }) => (
+export const Button: React.FunctionComponent<ButtonProps> = ({
+    text,
+    onClick,
+    isSelected
+}) => (
     <StyledButton
         onClick={() => onClick(text)}
         isActive={isSelected}

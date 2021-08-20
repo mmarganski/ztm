@@ -1,36 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { VoidFunction } from '../types'
 import { Button } from './Button'
 
 type BusSelectorProps = {
-    busRecords: Record<string, string>,
-    onSelectBus: VoidFunction<string>
+    busRecords: Record<number, string>,
+    activeBusId: number,
+    onSelectBus(id: number): void
 }
 
-export const BusSelector: React.FunctionComponent<BusSelectorProps> = ({ busRecords, onSelectBus }) => {
-    const [activeButton, setActiveButton] = useState('')
-
-    const onSelect = (id: string) => {
-        const toggleResult = activeButton === id ? '' : id
-
-        onSelectBus(toggleResult)
-        setActiveButton(toggleResult)
-    }
-
-    return (
-        <ListWrapper>
-            {Object.entries(busRecords).map(([id, name]) => (
-                <Button
-                    key={id}
-                    text={name}
-                    onClick={() => onSelect(id)}
-                    isSelected={id === activeButton}
-                />
-            ))}
-        </ListWrapper>
-    )
-}
+export const BusSelector: React.FunctionComponent<BusSelectorProps> = ({
+    busRecords,
+    activeBusId,
+    onSelectBus
+}) => (
+    <ListWrapper>
+        {Object.entries(busRecords).map(([id, name]) => (
+            <Button
+                key={id}
+                text={name}
+                onClick={() => onSelectBus(Number(id))}
+                isSelected={Number(id) === activeBusId}
+            />
+        ))}
+    </ListWrapper>
+)
 
 const ListWrapper = styled.div`
   display: flex;

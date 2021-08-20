@@ -1,31 +1,28 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button } from './Button'
-import { VoidFunction } from '../types'
 
 type SidebarProps = {
     buttons: Array<string>,
-    onSidebarSelect: VoidFunction<string>
+    onSidebarSelect(text: string): void
 }
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = ({ buttons, onSidebarSelect }) => {
-    const [currentSelect, setSelect] = useState('')
+    const [selectedTab, setTab] = useState('')
 
     return (
         <SidebarWrapper>
-            {
-                buttons.map((buttonText, index) => (
-                    <Button
-                        key={`${index}-${buttonText}`}
-                        text={buttonText}
-                        onClick={() => {
-                            onSidebarSelect(buttonText)
-                            setSelect(currentSelect === buttonText ? '' : buttonText)
-                        }}
-                        isSelected={currentSelect === buttonText}
-                    />
-                ))
-            }
+            {buttons.map((buttonText, index) => (
+                <Button
+                    key={`${index}-${buttonText}`}
+                    text={buttonText}
+                    onClick={() => {
+                        onSidebarSelect(buttonText)
+                        setTab(selectedTab === buttonText ? '' : buttonText)
+                    }}
+                    isSelected={selectedTab === buttonText}
+                />
+            ))}
         </SidebarWrapper>
     )
 }

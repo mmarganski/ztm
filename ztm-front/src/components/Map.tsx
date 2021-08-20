@@ -1,7 +1,7 @@
 import React from 'react'
 
 type MapProps = {
-    activeBusId: string
+    activeBusId: number
 }
 
 export const Map: React.FunctionComponent<MapProps> = ({ activeBusId }) => (
