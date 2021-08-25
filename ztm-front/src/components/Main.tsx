@@ -5,15 +5,15 @@ import { MapView } from './MapView'
 import { ButtonsList } from '../types'
 
 export const Main = () => {
-    const [currentSelect, setSelect] = useState(false)
+    const [currentSelect, setSelect] = useState<ButtonsList>(ButtonsList.TrackBus)
 
     return(
         <MainWrapper>
             <Sidebar
                 buttons={Object.values(ButtonsList)}
-                onSidebarSelect={() => setSelect(!currentSelect)}
+                onSidebarSelect={(tabName: ButtonsList) => setSelect(tabName)}
             />
-            <MapView isSelectingBus={currentSelect}/>
+            <MapView currentTabSelect={currentSelect}/>
         </MainWrapper>
     )
 }

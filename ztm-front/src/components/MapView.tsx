@@ -5,20 +5,25 @@ import { Map } from './Map'
 import { busRecords } from '../data'
 
 type MapViewProps = {
-    isSelectingBus: boolean
+    currentTabSelect: string
 }
+export const MapView: React.FunctionComponent<MapViewProps> = ({ currentTabSelect }) => {
+    const [activeBusesIds, setActiveBuses] = useState<Array<number>>([])
 
-export const MapView: React.FunctionComponent<MapViewProps> = ({ isSelectingBus }) => {
-    const [activeBusId, setActiveBus] = useState(0)
+    const toggleBus = (newBusId: number) => {
+        setActiveBuses(activeBusesIds.includes(newBusId)
+            ? activeBusesIds.filter(busId => busId !== newBusId)
+            : activeBusesIds.concat(newBusId)
+        )
+    }
 
     return(
         <Wrapper>
-            {isSelectingBus &&
-                <BusSelector
-                    busRecords={busRecords}
-                    activeBusId={activeBusId}
-                    onSelectBus={(id: number) => setActiveBus(activeBusId === id ? 0 : id)}
-                />
+            {currentTabSelect === ButtonsList.TrackBus && <BusSelector
+                busRecords={busRecords}
+                activeBusesIds={activeBusesIds}
+                onSelectBus={toggleBus}
+            />
             }
             <Map activeBusId={activeBusId}/>
         </Wrapper>

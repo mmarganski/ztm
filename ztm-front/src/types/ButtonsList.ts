@@ -1,3 +1,5 @@
 export enum ButtonsList {
-    TrackBus= 'TrackBus'
+    TrackBus = 'TrackBus',
+    GF = 'GeoFencing',
+    GFBus = 'GFBus'
 }
