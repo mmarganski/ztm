@@ -15,8 +15,12 @@ type LatLng = {
     lng: number
 }
 
-type Element = {
-    elements: Array<{ text: string }>
+type innerElement = {
+    text: string
+}
+
+type outerElement = {
+    elements: Array<innerElement>
 }
 
 @WebSocketGateway()
@@ -42,7 +46,7 @@ export class AppGateway implements OnGatewayConnection{
                 ?.elements
                 ?.[0]
                 ?.elements
-        ).map((element: Element) => element
+        ).map((element: outerElement) => element
             ?.elements
             ?.[0]
             ?.text
@@ -56,11 +60,9 @@ export class AppGateway implements OnGatewayConnection{
         this.client.emit('busPositionUpdate', arrayData as Array<LatLng>)
     }
 
-    @SubscribeMessage('toggleBus')
-    toggleBus(client: Socket, newBus: string) {
-        this.currentBuses = this.currentBuses.includes(newBus)
-            ? this.currentBuses.filter(busName => busName !== newBus)
-            : this.currentBuses.concat(newBus)
+    @SubscribeMessage('setActiveBusses')
+    setActiveBusses(client: Socket, activeBuses: Array<string>) {
+        this.currentBuses = activeBuses
     }
 
     @SubscribeMessage('getBusesList')

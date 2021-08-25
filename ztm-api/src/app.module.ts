@@ -7,7 +7,7 @@ import { AppGateway } from './app.gateway'
 
 @Module({
   imports: [
-      ConfigModule.forRoot(),
+    ConfigModule.forRoot(),
     ScheduleModule.forRoot()
   ],
   controllers: [AppController],
