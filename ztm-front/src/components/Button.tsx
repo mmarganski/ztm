@@ -14,13 +14,15 @@ type ButtonProps = {
 export const Button: React.FunctionComponent<ButtonProps> = ({
     text,
     onClick,
-    isSelected
+    isSelected,
+    children
 }) => (
     <StyledButton
         onClick={() => onClick(text)}
         isActive={isSelected}
     >
         {text}
+        {children}
     </StyledButton>
 )
 

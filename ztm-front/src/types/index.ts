@@ -1,2 +1,3 @@
-export type { VoidFunction } from './VoidFunction'
-export { ButtonsList } from './ButtonsList'
+export type { LatLng } from './LatLng'
+export type { Place } from './Place'
+export { TabsList } from './TabsList'

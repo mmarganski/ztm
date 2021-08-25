@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Provider } from 'outstated'
 import { Sidebar } from './Sidebar'
 import { MapView } from './MapView'
-import { ButtonsList } from '../types'
+import { TabsList } from '../types'
+import { storeGroup } from '../stores'
+import { ApiConnector } from './ApiConnector'
 
 export const Main = () => {
-    const [currentSelect, setSelect] = useState<ButtonsList>(ButtonsList.TrackBus)
+    const [currentSelect, setSelect] = useState<TabsList>(TabsList.TrackBus)
 
     return(
         <MainWrapper>
             <Sidebar
-                buttons={Object.values(ButtonsList)}
-                onSidebarSelect={(tabName: ButtonsList) => setSelect(tabName)}
+                buttons={Object.values(TabsList)}
+                onSidebarSelect={(tabName: TabsList) => setSelect(tabName)}
             />
-            <MapView currentTabSelect={currentSelect}/>
+            <Provider stores={storeGroup}>
+                <ApiConnector/>
+                <MapView currentTabSelect={currentSelect}/>
+            </Provider>
         </MainWrapper>
     )
 }
