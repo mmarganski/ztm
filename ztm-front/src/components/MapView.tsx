@@ -19,11 +19,11 @@ export const MapView: React.FunctionComponent<MapViewProps> = ({ currentTabSelec
 
     return(
         <Wrapper>
-            {currentTabSelect === ButtonsList.TrackBus && <BusSelector
+            {currentTabSelect === ButtonsList.TrackBus && (<BusSelector
                 busRecords={busRecords}
                 activeBusesIds={activeBusesIds}
                 onSelectBus={toggleBus}
-            />
+            />)
             }
             <Map activeBusId={activeBusId}/>
         </Wrapper>
