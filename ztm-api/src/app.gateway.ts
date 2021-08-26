@@ -42,20 +42,14 @@ export class AppGateway implements OnGatewayConnection{
         const response = await this.makeRequest(`${process.env.ZTM_URL}${this.currentBuses.join(',')}`)
         const jsonResponse = convert.xml2json(response.data, {compact: false, spaces: 4})
         const arrayData = Object.values(
-            JSON.parse(jsonResponse)
-                ?.elements
-                ?.[0]
-                ?.elements
-            ).map((element: outerElement) => element
-                ?.elements
-                ?.[0]
-                ?.text
+            JSON.parse(jsonResponse)?.elements?.[0]?.elements
+            ).map((element: outerElement) => element?.elements?.[0]?.text
                 .replace(/^\[|]$/g, '')
                 .split(','))
-                .map((busDetails: Array<string>) => busDetails.length >= 10
-                    ? { lat: Number(busDetails[10]), lng: Number(busDetails[9]) } as LatLng
-                    : ''
-                ).filter(Boolean)
+            .map((busDetails: Array<string>) => busDetails.length >= 10
+                ? { lat: Number(busDetails[10]), lng: Number(busDetails[9]) } as LatLng
+                : ''
+            ).filter(Boolean)
 
         this.client.emit('busPositionUpdate', arrayData as Array<LatLng>)
     }

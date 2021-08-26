@@ -37,6 +37,7 @@ export const ApiConnector: React.FunctionComponent = () => {
 
     useEffect(() => {
         const matchingPlaces = places.filter(place => activePlaces.includes(place.name))
+
         busPositions.forEach(position => {
             matchingPlaces.forEach(place => {
                 const distance = Math.sqrt((position.lng - place.lng)**2 + (position.lat - place.lat)**2)
