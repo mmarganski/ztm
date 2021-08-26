@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { Place } from '../types'
 
-export const useActivePlacesStore = () => {
+export const usePlacesStore = () => {
     const [activePlaces, setActivePlace] = useState<Array<string>>([])
+    const [places, setPlace] = useState<Array<Place>>([])
 
     const togglePlace = (newPlaceName: string) => {
         setActivePlace(activePlaces.includes(newPlaceName)
@@ -12,6 +14,8 @@ export const useActivePlacesStore = () => {
 
     return {
         activePlaces,
-        togglePlace
+        togglePlace,
+        places,
+        setPlace
     }
 }

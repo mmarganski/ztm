@@ -33,7 +33,7 @@ export const AddPlaceModal: React.FunctionComponent<ModalProps> = ({
                         onKeyDown={event => event.key === 'Enter' ? submitInput() : null}
                     />
                     <Input
-                        placeholder={'radius of influence'}
+                        placeholder="radius of influence"
                         type="number"
                         value={radius}
                         onChange={event => setRadius(event.target.value)}

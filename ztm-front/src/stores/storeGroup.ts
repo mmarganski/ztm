@@ -1,15 +1,11 @@
-import { useActiveBussesStore } from './useActiveBussesStore'
-import { useActivePlacesStore } from './useActivePlacesStore'
-import { useBusListStore } from './useBusListStore'
-import { useBusPositionsStore } from './useBusPositionsStore'
-import { useClickLatLngStore } from './useClickLatLngStore'
-import { usePlaceStore } from './usePlaceStore'
+import { useBusStore } from './useBusStore'
+import { usePlacesStore } from './usePlacesStore'
+import { useOthersStore } from './useOthersStore'
+import { useSocketStore } from './useSocketStore'
 
 export const storeGroup = [
-    useActiveBussesStore,
-    useActivePlacesStore,
-    useBusListStore,
-    useBusPositionsStore,
-    useClickLatLngStore,
-    usePlaceStore
+    useBusStore,
+    usePlacesStore,
+    useOthersStore,
+    useSocketStore
 ]

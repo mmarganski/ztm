@@ -46,16 +46,16 @@ export class AppGateway implements OnGatewayConnection{
                 ?.elements
                 ?.[0]
                 ?.elements
-        ).map((element: outerElement) => element
-            ?.elements
-            ?.[0]
-            ?.text
-            .replace(/^\[|]$/g, '')
-            .split(','))
-            .map((busDetails: Array<string>) => busDetails.length >= 10
-                ? { lat: Number(busDetails[10]), lng: Number(busDetails[9]) } as LatLng
-                : ''
-            ).filter(Boolean)
+            ).map((element: outerElement) => element
+                ?.elements
+                ?.[0]
+                ?.text
+                .replace(/^\[|]$/g, '')
+                .split(','))
+                .map((busDetails: Array<string>) => busDetails.length >= 10
+                    ? { lat: Number(busDetails[10]), lng: Number(busDetails[9]) } as LatLng
+                    : ''
+                ).filter(Boolean)
 
         this.client.emit('busPositionUpdate', arrayData as Array<LatLng>)
     }
