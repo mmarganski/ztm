@@ -39,13 +39,25 @@ export const ApiConnector: React.FunctionComponent = () => {
 
         busPositions.forEach(position => {
             matchingPlaces.forEach(place => {
-                const distance = Math.sqrt((position.lng - place.lng)**2 + (position.lat - place.lat)**2)
-                if (distance <= place.radius * Number(process.env.REACT_APP_RADIUS_RATIO)) {
+                if (measureDistance(place, position) < place.radius) {
                     console.log('Bus close to', place.name)
                 }
             })
         })
     }, [busPositions])
+
+    const measureDistance = (position1: LatLng, position2: LatLng) => {
+        const earthRadius = 6378.137
+        const latDiff = position2.lat * Math.PI / 180 - position1.lat * Math.PI / 180
+        const lngDiff = position2.lng * Math.PI / 180 - position1.lng * Math.PI / 180
+        const a = Math.sin(latDiff/2) * Math.sin(latDiff/2) +
+            Math.cos(position1.lat * Math.PI / 180) * Math.cos(position2.lat * Math.PI / 180) *
+            Math.sin(lngDiff/2) * Math.sin(lngDiff/2)
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        const d = earthRadius * c
+
+        return d * 1000
+    }
 
     return (
         <div/>
