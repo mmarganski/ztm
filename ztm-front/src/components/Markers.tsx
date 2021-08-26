@@ -10,11 +10,11 @@ export const Markers: React.FunctionComponent = () => {
 
     return (
         <div>
-            {(currentTab === TabsList.GF  ? [clickLatLng] : busPositions)
+            {(currentTab === TabsList.GeoFencing  ? [clickLatLng] : busPositions)
                 .map((latLng, index) => (
                     <Marker
                         key={`${index}-${latLng.lat}-${latLng.lng}`}
-                        icon={currentTab === TabsList.GF
+                        icon={currentTab === TabsList.GeoFencing
                             ? null
                             : 'Bus-icon.png'}
                         position={latLng}

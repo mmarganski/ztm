@@ -16,18 +16,18 @@ export const MapView: React.FunctionComponent = () => {
                     <BusSelector/>
                 )
 
-            case TabsList.GF:
+            case TabsList.GeoFencing:
                 return (
                     <PlaceSelector isAddingAvailable />
                 )
 
             default:
-            case TabsList.GFBus:
+            case TabsList.GeoFencingBus:
                 return (
-                    <div>
+                    <React.Fragment>
                         <BusSelector/>
                         <PlaceSelector isAddingAvailable={false}/>
-                    </div>
+                    </React.Fragment>
                 )
         }
     }

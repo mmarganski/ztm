@@ -57,7 +57,7 @@ export const PlaceSelector: React.FunctionComponent<PlaceSelectorProps> = ({ isA
             ))}
             {isAddingAvailable && (
                 <Button
-                    text={'+'}
+                    text="+"
                     isSelected={false}
                     onClick={() => setModal(true)}
                 />

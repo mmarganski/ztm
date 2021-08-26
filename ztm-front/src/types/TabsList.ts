@@ -1,5 +1,5 @@
 export enum TabsList {
     TrackBus = 'TrackBus',
-    GF = 'GeoFencing',
-    GFBus = 'GFBus'
+    GeoFencing = 'GeoFencing',
+    GeoFencingBus = 'GFBus'
 }

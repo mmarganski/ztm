@@ -45,5 +45,5 @@ const MapWrapper = styled.div`
 `
 
 const Loader = styled.div`
-  padding: 20%;
+  margin-top: 300px;
 `

@@ -22,7 +22,7 @@ export const ApiConnector: React.FunctionComponent = () => {
     } = usePlaces()
 
     socketConnection?.on('busPositionUpdate', (newBusPositions: Array<LatLng>) => {
-        if (currentTab === TabsList.TrackBus || currentTab === TabsList.GFBus) {
+        if (currentTab === TabsList.TrackBus || currentTab === TabsList.GeoFencingBus) {
             setBusPositions(newBusPositions)
         }
     })
