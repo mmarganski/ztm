@@ -1,22 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { Provider } from 'outstated'
 import { Sidebar } from './Sidebar'
 import { MapView } from './MapView'
-import { ButtonsList } from '../types'
+import { storeGroup } from '../stores'
+import { ApiConnector } from './ApiConnector'
 
-export const Main = () => {
-    const [currentSelect, setSelect] = useState<ButtonsList>(ButtonsList.TrackBus)
-
-    return(
-        <MainWrapper>
-            <Sidebar
-                buttons={Object.values(ButtonsList)}
-                onSidebarSelect={(tabName: ButtonsList) => setSelect(tabName)}
-            />
-            <MapView currentTabSelect={currentSelect}/>
-        </MainWrapper>
-    )
-}
+export const Main = () => (
+    <MainWrapper>
+        <Provider stores={storeGroup}>
+            <Sidebar/>
+            <ApiConnector/>
+            <MapView/>
+        </Provider>
+    </MainWrapper>
+)
 
 const MainWrapper = styled.div`
   position: fixed;
