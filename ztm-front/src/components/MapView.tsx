@@ -1,31 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { useStore } from 'outstated'
 import { BusSelector } from './BusSelector'
 import { Map } from './Map'
-import { busRecords } from '../data'
+import { PlaceSelector } from './PlaceSelector'
+import { TabsList } from '../types'
+import { useOthersStore } from '../stores'
 
-type MapViewProps = {
-    currentTabSelect: string
-}
-export const MapView: React.FunctionComponent<MapViewProps> = ({ currentTabSelect }) => {
-    const [activeBusesIds, setActiveBuses] = useState<Array<number>>([])
+export const MapView: React.FunctionComponent = () => {
+    const { currentTab } = useStore(useOthersStore)
 
-    const toggleBus = (newBusId: number) => {
-        setActiveBuses(activeBusesIds.includes(newBusId)
-            ? activeBusesIds.filter(busId => busId !== newBusId)
-            : activeBusesIds.concat(newBusId)
-        )
+    const displayTabsSelectors = () => {
+        switch (currentTab){
+            case TabsList.TrackBus:
+                return (<BusSelector/>)
+            case TabsList.GF:
+                return (<PlaceSelector isAddingAvailable />)
+            default:
+            case TabsList.GFBus:
+                return(<>
+                    <BusSelector/>
+                    <PlaceSelector isAddingAvailable={false}/>
+                </>)
+        }
     }
 
     return(
         <Wrapper>
-            {currentTabSelect === ButtonsList.TrackBus && (<BusSelector
-                busRecords={busRecords}
-                activeBusesIds={activeBusesIds}
-                onSelectBus={toggleBus}
-            />)
-            }
-            <Map activeBusId={activeBusId}/>
+            {displayTabsSelectors()}
+            <Map/>
         </Wrapper>
     )
 }
