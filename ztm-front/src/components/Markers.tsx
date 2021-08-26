@@ -1,26 +1,22 @@
 import React from 'react'
 import { Circle, Marker } from '@react-google-maps/api'
-import { useStore } from 'outstated'
-import {
-    useBusStore,
-    useOthersStore,
-    usePlacesStore } from '../stores'
 import { TabsList } from '../types'
+import { useBus, useOthers, usePlaces } from '../hooks'
 
 export const Markers: React.FunctionComponent = () => {
-    const { places, activePlaces } = useStore(usePlacesStore)
-    const { busPositions } = useStore(useBusStore)
-    const { clickLatLng, currentTab } = useStore(useOthersStore)
+    const { places, activePlaces } = usePlaces()
+    const { busPositions } = useBus()
+    const { clickLatLng, currentTab } = useOthers()
 
-    return(
-        <>
+    return (
+        <div>
             {(currentTab === TabsList.GF  ? [clickLatLng] : busPositions)
                 .map((latLng, index) => (
                     <Marker
                         key={`${index}-${latLng.lat}-${latLng.lng}`}
                         icon={currentTab === TabsList.GF
                             ? null
-                            : process.env.REACT_APP_BUS_ICON}
+                            : 'Bus-icon.png'}
                         position={latLng}
                         noClustererRedraw
                     />
@@ -38,6 +34,6 @@ export const Markers: React.FunctionComponent = () => {
                     />
                 ))
             }
-        </>
+        </div>
     )
 }

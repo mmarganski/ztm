@@ -1,13 +1,16 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import styled from 'styled-components'
-import { useStore } from 'outstated'
+import FadeLoader from 'react-spinners/ClipLoader'
 import { Markers } from './Markers'
-import { useOthersStore } from '../stores'
+import { useOthers } from '../hooks'
 
 export const Map: React.FunctionComponent = () => {
-    const { clickLatLng, setClickLatLng } = useStore(useOthersStore)
-    const { isLoaded } = useJsApiLoader({ googleMapsApiKey: `${process.env.REACT_APP_MAP_KEY}` })
+    const { clickLatLng, setClickLatLng } = useOthers()
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: `${process.env.REACT_APP_MAP_KEY}`
+    })
 
     return (
         <MapWrapper>
@@ -26,7 +29,11 @@ export const Map: React.FunctionComponent = () => {
                 >
                     <Markers/>
                 </GoogleMap>
-            ) : <></>}
+            ) : (
+                <Loader>
+                    <FadeLoader size={80}/>
+                </Loader>
+            )}
         </MapWrapper>
     )
 }
@@ -35,4 +42,8 @@ const MapWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+`
+
+const Loader = styled.div`
+  padding: 20%;
 `

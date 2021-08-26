@@ -1,15 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useStore } from 'outstated'
 import { Button } from './Button'
-import { useBusStore } from '../stores'
+import { useBus } from '../hooks'
 
 export const BusSelector: React.FunctionComponent = () => {
     const {
         busList,
         activeBuses,
         toggleBus
-    } = useStore(useBusStore)
+    } = useBus()
 
     return (
         <ListWrapper>

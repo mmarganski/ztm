@@ -1,26 +1,25 @@
 import React, { useEffect } from 'react'
-import { useStore } from 'outstated'
 import { LatLng, TabsList } from '../types'
 import {
-    useBusStore,
-    usePlacesStore,
-    useOthersStore,
-    useSocketStore
-} from '../stores'
+    useBus,
+    useOthers,
+    usePlaces,
+    useSocket
+} from '../hooks'
 
 export const ApiConnector: React.FunctionComponent = () => {
-    const { socketConnection, setActiveBusses } = useStore(useSocketStore)
-    const { currentTab } = useStore(useOthersStore)
+    const { socketConnection, setActiveBusses } = useSocket()
+    const { currentTab } = useOthers()
     const {
         activeBuses,
         busPositions,
         setBusPositions,
         setBusList
-    } = useStore(useBusStore)
+    } = useBus()
     const {
         places,
         activePlaces
-    } = useStore(usePlacesStore)
+    } = usePlaces()
 
     socketConnection?.on('busPositionUpdate', (newBusPositions: Array<LatLng>) => {
         if (currentTab === TabsList.TrackBus || currentTab === TabsList.GFBus) {
@@ -48,7 +47,7 @@ export const ApiConnector: React.FunctionComponent = () => {
         })
     }, [busPositions])
 
-    return(
+    return (
         <div/>
     )
 }

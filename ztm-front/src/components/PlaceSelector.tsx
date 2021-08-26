@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useStore } from 'outstated'
 import { Button } from './Button'
 import { AddPlaceModal } from './AddPlaceModal'
-import { usePlacesStore, useOthersStore } from '../stores'
+import { useOthers, usePlaces } from '../hooks'
 
 type PlaceSelectorProps = {
     isAddingAvailable: boolean
@@ -11,16 +10,17 @@ type PlaceSelectorProps = {
 
 export const PlaceSelector: React.FunctionComponent<PlaceSelectorProps> = ({ isAddingAvailable }) => {
     const [isModalActive, setModal] = useState(false)
-    const { clickLatLng } = useStore(useOthersStore)
+    const { clickLatLng } = useOthers()
     const {
         places,
         setPlace,
         activePlaces,
         togglePlace
-    } = useStore(usePlacesStore)
+    } = usePlaces()
 
     const onRemovePlace = (name: string) => {
         setPlace(prevPlaces => prevPlaces.filter(place => place.name !== name))
+
         if (activePlaces.includes(name)) {
             togglePlace(name)
         }
@@ -35,12 +35,13 @@ export const PlaceSelector: React.FunctionComponent<PlaceSelectorProps> = ({ isA
                 lng: clickLatLng.lng,
                 radius
             }))
+
         if (!activePlaces.includes(newPlace)) {
             togglePlace(newPlace)
         }
     }
 
-    return(
+    return (
         <ListWrapper>
             {places.map((place, index) => (
                 <Button
@@ -54,12 +55,13 @@ export const PlaceSelector: React.FunctionComponent<PlaceSelectorProps> = ({ isA
                     </DeleteButton>
                 </Button>
             ))}
-            {isAddingAvailable && (<Button
-                text={'+'}
-                isSelected={false}
-                onClick={() => setModal(true)}
-            />)
-            }
+            {isAddingAvailable && (
+                <Button
+                    text={'+'}
+                    isSelected={false}
+                    onClick={() => setModal(true)}
+                />
+            )}
             <AddPlaceModal
                 isActive={isModalActive}
                 onClose={() => setModal(false)}

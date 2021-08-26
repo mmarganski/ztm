@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useStore } from 'outstated'
 import { Button } from './Button'
-import { useOthersStore } from '../stores'
 import { TabsList } from '../types'
+import { useOthers } from '../hooks'
 
 export const Sidebar: React.FunctionComponent = () => {
-    const { currentTab, setCurrentTab } = useStore(useOthersStore)
+    const { currentTab, setCurrentTab } = useOthers()
 
     return (
         <SidebarWrapper>
@@ -14,9 +13,7 @@ export const Sidebar: React.FunctionComponent = () => {
                 <Button
                     key={`${index}-${tabName}`}
                     text={tabName}
-                    onClick={() => {
-                        setCurrentTab(tabName)
-                    }}
+                    onClick={() => setCurrentTab(tabName)}
                     isSelected={currentTab === tabName}
                 />
             ))}

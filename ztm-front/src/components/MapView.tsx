@@ -1,31 +1,38 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useStore } from 'outstated'
 import { BusSelector } from './BusSelector'
 import { Map } from './Map'
 import { PlaceSelector } from './PlaceSelector'
 import { TabsList } from '../types'
-import { useOthersStore } from '../stores'
+import { useOthers } from '../hooks'
 
 export const MapView: React.FunctionComponent = () => {
-    const { currentTab } = useStore(useOthersStore)
+    const { currentTab } = useOthers()
 
     const displayTabsSelectors = () => {
-        switch (currentTab){
+        switch (currentTab) {
             case TabsList.TrackBus:
-                return (<BusSelector/>)
+                return (
+                    <BusSelector/>
+                )
+
             case TabsList.GF:
-                return (<PlaceSelector isAddingAvailable />)
+                return (
+                    <PlaceSelector isAddingAvailable />
+                )
+
             default:
             case TabsList.GFBus:
-                return(<>
-                    <BusSelector/>
-                    <PlaceSelector isAddingAvailable={false}/>
-                </>)
+                return (
+                    <div>
+                        <BusSelector/>
+                        <PlaceSelector isAddingAvailable={false}/>
+                    </div>
+                )
         }
     }
 
-    return(
+    return (
         <Wrapper>
             {displayTabsSelectors()}
             <Map/>
