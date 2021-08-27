@@ -1,26 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Button'
+import { TabsList } from '../types'
+import { useOthers } from '../hooks'
 
-type SidebarProps = {
-    buttons: Array<string>,
-    onSidebarSelect(text: string): void
-}
-
-export const Sidebar: React.FunctionComponent<SidebarProps> = ({ buttons, onSidebarSelect }) => {
-    const [selectedTab, setTab] = useState('')
+export const Sidebar: React.FunctionComponent = () => {
+    const { currentTab, setCurrentTab } = useOthers()
 
     return (
         <SidebarWrapper>
-            {buttons.map((buttonText, index) => (
+            {Object.values(TabsList).map((tabName, index) => (
                 <Button
-                    key={`${index}-${buttonText}`}
-                    text={buttonText}
-                    onClick={() => {
-                        onSidebarSelect(buttonText)
-                        setTab(selectedTab === buttonText ? '' : buttonText)
-                    }}
-                    isSelected={selectedTab === buttonText}
+                    key={`${index}-${tabName}`}
+                    text={tabName}
+                    onClick={() => setCurrentTab(tabName)}
+                    isSelected={currentTab === tabName}
                 />
             ))}
         </SidebarWrapper>
